@@ -1,0 +1,32 @@
+// Alexis LAVALLÉE 2TSSNEC - Exercice 3 Langage C - Manipulation de nombres entiers
+ 
+#include <stdio.h>
+#include <stdlib.h>
+ 
+int main()
+{
+    int entier01; //déclaration variable entier
+    int entier02;
+    int NbrSaisies = 1;
+    int somme = 0;
+ 
+ 
+    printf("Veuillez saisir un nombre entier : "); //affichage d'un texte
+    scanf("%d", &entier01); //scan + saisie + stockage dans la variable
+    printf("\nVous avez saisi : %d", entier01);
+ 
+    while(entier01>=entier02){ //boucle : tant que entier01 est supérieur ou égal à entier02, alors :
+        somme += entier01; //on attribue une nouvelle valeur à somme à partir de sa précédente valeur
+        entier02 = entier01;
+        printf("\n\nVeuillez saisir un nombre entier : ");
+        scanf("%d", &entier01);
+        printf("\nVous avez saisi : %d", entier01);
+        NbrSaisies++; //on incrémente 1 à NbrSaisies
+    }
+ 
+    if(entier02>entier01){ //condition : si entier02 est supérieur à entier01
+        printf("\n\nLa valeur est inferieure a la valeur precedente");
+        printf("\nVous avez saisi %d valeurs", NbrSaisies);
+        printf("\nLa somme des valeurs saisies (sans le nombre qui arrete la saisie) est : %d", somme);
+    }
+}
