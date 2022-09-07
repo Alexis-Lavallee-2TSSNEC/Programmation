@@ -1,0 +1,29 @@
+// Alexis LAVALLÉE 2TSSNEC - Exercice 2 Langage C - Table de multiplication et factorielle
+ 
+#include <stdio.h>
+#include <stdlib.h>
+ 
+int main()
+{
+    int entier; //déclaration variable entier
+    printf("Veuillez saisir un entier positif : "); //affichage d'un message
+    scanf("%d", &entier); //saisie + scan + stockage dans la variable
+ 
+    if(entier>0){ //condition : si entier est positif, alors :
+        printf("\nLe nombre saisi est : %d", entier);
+ 
+        printf("\n\n----- Table de multiplication de %d -----", entier);
+        for(int i=0; i<=12; i++){ //boucle : depuis i=0, on incrémente i jusqu'à 12
+           printf("\n%d x %d = ", entier, i);
+           printf("%d", entier*i);
+        }
+ 
+        printf("\n\n----- Factorielle de %d -----", entier);
+        double factorielle = 1; //déclaration variable double
+        for(int i=1; i<=entier; i++){
+            factorielle = factorielle*i; //attribution d'une nouvelle valeur à la variable
+        }
+        printf("\nLa factorielle de 5 est : %.0f", factorielle); //.0f pour afficher le résultat sans les chiffres après la virgule
+    }
+    return 0; //fin du programme
+}
