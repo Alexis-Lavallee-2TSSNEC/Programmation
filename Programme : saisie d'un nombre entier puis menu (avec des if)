@@ -1,21 +1,23 @@
+// Alexis LAVALLÉE 2TSSNEC - Exercice 1 Langage C - Menu en if
+ 
 #include <stdio.h>
 #include <stdlib.h>
-
+ 
 int main()
 {
-    printf("Bienvenue !\n\n");
-    int entier;
+    printf("Bienvenue !\n\n"); // Afficher un message
+    int entier; // déclaration variable entier
     int reset = 0;
     printf("Veuillez saisir un nombre : ");
-    scanf("%d", &entier);
-
-    printf("\n\nLa valeur saisie est : %d", entier);
-    if(entier<=0)
+    scanf("%d", &entier); // saisie + scan + stockage dans la variable
+ 
+    printf("\n\nLa valeur saisie est : %d", entier); 
+    if(entier<=0) //condition : si l'entier est inférieur ou égal à 0
     {
         printf("\nCette valeur est negative, son oppose est %d, qui devient la nouvelle valeur", entier*(-1));
-        entier = entier*(-1);
+        entier = entier*(-1); //attribution d'une nouvelle valeur à une variable existante
     }
-    else
+    else //condition : sinon
     {
         printf("\nCette valeur est positive, son double est %d", entier*2);
     }
@@ -27,14 +29,14 @@ int main()
     {
         printf("\nLa valeur est superieure a 20");
     }
-    if(5<=entier && entier<=20)
+    if(5<=entier && entier<=20) //"&&" signifie qu'on a 2 conditions à remplir pour exécuter la suite
     {
         printf("\nLa valeur est comprise entre 5 et 20");
     }
-
+ 
     int choix;
     int rejouer = 0;
-    while(reset == 0)
+    while(reset == 0) //boucle : tant que reset = 0, alors :
     {
         printf("\n\n--> [MENU] Veuillez choisir quel parametre vous voulez afficher");
         printf("\n 1. Double du nombre saisi");
@@ -47,7 +49,7 @@ int main()
         printf("\n 8. Moyenne de ces valeurs");
         printf("\n\n>>> ");
         scanf("%d", &choix);
-
+ 
         if(choix == 1){
             printf("\nLe double de la valeur est %d", entier*2);
         }
@@ -60,20 +62,20 @@ int main()
         if(choix == 4){
             int i = 2;
             printf("\nLes entiers compris entre 1 et le nombre saisi sont : ");
-            for(i=2; i<entier; i++)
+            for(i=2; i<entier; i++) //boucle : quand i=2, on incrémente i jusqu'à la valeur de l'entier
             {
                 printf("%d ", i);
             }
         }
         if(choix == 5){
             int j;
-            if(entier>=3)  /*Si "entier" est supérieur ou égal à 3*/
+            if(entier>=3)
             {
                 printf("\nLes multiples de 3 se trouvant entre 3 et %d sont : ", entier);
                 printf("3");
-                for(j=6; j<=entier; j++)  /*A partir du 2nd multiple, jusqu'à ce que i atteint "entier", i = i+1*/
+                for(j=6; j<=entier; j++)  //A partir du 2nd multiple, jusqu'à ce que i atteint "entier", i = i+1
                 {
-                    if(j % 3 == 0)  /*Quand il reste 0 quand i est divisé par 3*/
+                    if(j % 3 == 0)  //Si il reste 0 quand j est divisé par 3, alors :
                     {
                         printf(", %d", j);
                     }
@@ -87,11 +89,11 @@ int main()
         if(choix == 6){
             int j;
             int multiple = 1;
-            if(entier>=3)  /*Si "entier" est supérieur ou égal à 3*/
+            if(entier>=3)  
             {
-                for(j=6; j<=entier; j++)  /*A partir du 2nd multiple, jusqu'à ce que i atteint "entier", i = i+1*/
+                for(j=6; j<=entier; j++)  
                 {
-                    if(j % 3 == 0)  /*Quand il reste 0 quand i est divisé par 3*/
+                    if(j % 3 == 0)  
                     {
                         multiple = multiple + 1;
                     }
@@ -114,8 +116,8 @@ int main()
         if(choix == 8){
             int somme = 0;
             int div = 0;
-            float moyenne;
-
+            float moyenne; //déclaration variable flottante
+ 
             for(int i=1; i<=entier; i++)
             {
                 somme = somme + i;
@@ -124,13 +126,13 @@ int main()
             moyenne = somme/div;
             printf("\nLa moyenne des nombres entiers compris entre 1 et le nombre saisi est %1.2f", moyenne);
         }
-
+ 
         printf("\n\nVoulez vous revenir au menu ?");
         printf("\n1. Oui");
         printf("\n2. Non");
         printf("\n\n>>> ");
         scanf("%d", &rejouer);
-
+ 
         if(rejouer == 1){
             reset = 0;
         }
@@ -138,9 +140,9 @@ int main()
             reset = 1;
         }
         if(rejouer != 1 && rejouer !=2){
-            printf("\nErreur");
+            printf("\nErreur"); //Affichage d'un message d'erreur en cas de mauvaise saisie
             reset = 1;
         }
     }
-    return 0;
+    return 0; //fin du programme
 }
