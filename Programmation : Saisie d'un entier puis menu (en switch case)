@@ -1,0 +1,146 @@
+// Alexis LAVALLÉE 2TSSNEC - Exercice 1 Langage C - Menu en switch case
+ 
+#include <stdio.h>
+#include <stdlib.h>
+ 
+int main()
+{
+    printf("Bienvenue !"); // Afficher un message
+    int entier; // déclaration variable entier
+    int reset = 1;
+    int i;
+    int j;
+    int multiple;
+    int somme;
+ 
+    while(reset == 1)  //boucle : tant que reset est égal à 1, alors :
+    {
+        printf("\n\nVeuillez saisir un nombre : ");
+        scanf("%d", &entier); // saisie + scan + stockage dans la variable
+ 
+        printf("\n\nLa valeur saisie est : %d", entier);
+        if(entier<=0) //condition : si l'entier est inférieur ou égal à 0
+        {
+            printf("\nCette valeur est negative, son oppose est %d, qui devient la nouvelle valeur", entier*(-1));
+            entier = entier*(-1); //attribution d'une nouvelle valeur à une variable existante
+        }
+        else //condition : sinon
+        {
+            printf("\nCette valeur est positive, son double est %d", entier*2);
+        }
+        if(entier<5)
+        {
+            printf("\nLa valeur est inferieure a 5");
+        }
+        if(entier>20)
+        {
+            printf("\nLa valeur est superieure a 20");
+        }
+        if(5<=entier && entier<=20) //"&&" signifie qu'on a 2 conditions à remplir pour exécuter la suite
+        {
+            printf("\nLa valeur est comprise entre 5 et 20");
+        }
+ 
+        int choix;
+        printf("\n\n--> [MENU] Veuillez choisir quel parametre vous voulez afficher");
+        printf("\n 1. Double du nombre saisi");
+        printf("\n 2. Triple du nombre saisi");
+        printf("\n 3. Oppose du nombre saisi");
+        printf("\n 4. Entiers compris entre 1 et le nombre saisi");
+        printf("\n 5. Multiples de 3 entre 1 et le nombre saisi");
+        printf("\n 6. Nombre de multiples de 3 entre 1 et le nombre saisi");
+        printf("\n 7. Somme des entiers entre 1 et la valeur");
+        printf("\n 8. Moyenne de ces valeurs");
+        printf("\n\n>>> ");
+        while(choix<1 || choix>8)  //boucle : tant que choix est inférieur à 1 ou supérieur à 8, alors :
+        {
+            scanf("%d", &choix);
+            switch(choix) //condition : instruction conditionnelle
+            {
+            case 1: //cas n°1
+                printf("\nLe double de la valeur est %d", entier*2); //Instruction à exécuter dans le cas n°1
+                break; //fin du cas n°1
+            case 2:
+                printf("\nLe triple de la valeur est %d", entier*3);
+                break;
+            case 3:
+                printf("\nL'oppose de la valeur est %d", entier*(-1));
+                break;
+            case 4:
+                i = 2;
+                printf("\nLes entiers compris entre 1 et le nombre saisi sont : ");
+                for(i=2; i<entier; i++) //boucle : quand i=2, on incrémente i jusqu'à la valeur de l'entier
+                {
+                    printf("%d ", i);
+                }
+                break;
+            case 5:
+                if(entier>=3)
+                {
+                    printf("\nLes multiples de 3 se trouvant entre 3 et %d sont : ", entier);
+                    printf("3");
+                    for(j=6; j<=entier; j++)  //A partir du 2nd multiple, jusqu'à ce que i atteint "entier", i = i+1
+                    {
+                        if(j % 3 == 0)  //Si il reste 0 quand j est divisé par 3, alors :
+                        {
+                            printf(", %d", j);
+                        }
+                    }
+                }
+                else
+                {
+                    printf("Il n'y a pas de multiples de 3 entre 1 et le nombre saisi");
+                }
+                break;
+            case 6:
+                multiple = 1;
+                if(entier>=3)
+                {
+                    for(j=6; j<=entier; j++)
+                    {
+                        if(j % 3 == 0)
+                        {
+                            multiple = multiple + 1;
+                        }
+                    }
+                }
+                printf("\nIl y a %d multiples de 3 entre 1 et le nombre saisi", multiple);
+                if(entier<3)
+                {
+                    printf("\nIl n'y a pas de multiples de 3 entre 1 et le nombre saisi");
+                }
+                break;
+            case 7:
+                somme = 0;
+                for(int i=1; i<=entier; i++)
+                {
+                    somme = somme + i;
+                }
+                printf("\nLa somme des entiers de 1 au nombre saisi est %d", somme);
+                break;
+            case 8:
+                somme = 0;
+                int div = 0;
+                float moyenne; //déclaration variable flottante
+ 
+                for(int i=1; i<=entier; i++)
+                {
+                    somme = somme + i;
+                    div = div + 1;
+                }
+                moyenne = somme/div;
+                printf("\nLa moyenne des nombres entiers compris entre 1 et le nombre saisi est %1.2f", moyenne);
+                break;
+            default: //si la valeur de choix n'est pas une valeur attendue
+                printf("\nVotre requete n'est pas valide."); //instructions à exécuter si choix n'est pas égal à aucune des valeurs des cas
+                break;
+            }
+        }
+        printf("\n\nVoulez-vous recommencer avec un autre nombre entier ? "); //reset
+        printf("\n1. Oui");
+        printf("\n2. Non");
+        printf("\n\n>>> ");
+        scanf("%d", &reset);
+    }
+    return 0; //fin du programme
+}
