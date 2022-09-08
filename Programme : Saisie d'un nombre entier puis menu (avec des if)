@@ -71,7 +71,7 @@ int main()
             int j;
             if(entier>=3)
             {
-                printf("\nLes multiples de 3 se trouvant entre 3 et %d sont : ", entier);
+                printf("\nLes multiples de 3 se trouvant entre 1 et %d sont : ", entier);
                 printf("3");
                 for(j=6; j<=entier; j++)  //A partir du 2nd multiple, jusqu'à ce que i atteint "entier", i = i+1
                 {
