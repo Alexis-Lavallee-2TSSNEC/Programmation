@@ -127,7 +127,7 @@ int main()
             printf("\nLa moyenne des nombres entiers compris entre 1 et le nombre saisi est %1.2f", moyenne);
         }
  
-        printf("\n\nVoulez vous revenir au menu ?");
+        printf("\n\nVoulez vous resaisir un nombre ?");
         printf("\n1. Oui");
         printf("\n2. Non");
         printf("\n\n>>> ");
