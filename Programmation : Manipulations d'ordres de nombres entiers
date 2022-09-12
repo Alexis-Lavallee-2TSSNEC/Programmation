@@ -30,3 +30,27 @@ int main()
         printf("\nLa somme des valeurs saisies (sans le nombre qui arrete la saisie) est : %d", somme);
     }
 }
+
+
+#Alexis LAVALLEE 2TSSNEC - Exercice 3 Python - Manipulation de nombres entiers
+ 
+entier02 = 0 #déclaration variable
+somme = 0
+NbrSaisies = 1
+ 
+entier01 = int(input("Veuillez saisir un nombre entier : ")) #affichage d'un message + saisie + stockage de valeur
+print("Vous avez saisi : " + str(entier01))
+ 
+while entier01 >= entier02: #boucle : tant que entier01 est supérieur ou égal à entier02, alors :
+    somme = somme + entier01 #attribution d'une nouvelle valeur
+    entier02 = entier01
+    entier01 = int(input("Veuillez saisir un nombre entier : "))
+    print("Vous avez saisi : " + str(entier01))
+    NbrSaisies += 1 #on incrémente 1 à NbrSaisies
+ 
+if entier02 > entier01: #condition : si entier02 est supérieur à entier01, alors :
+    print("\nLa valeur est inférieure a la valeur précédente")
+    print("Vous avez saisi " + str(NbrSaisies) + " valeurs")
+    print("La somme des valeurs saisies (sans le nombre qui arrête la saisie) est : " + str(somme))
+ 
+#fin du programme
