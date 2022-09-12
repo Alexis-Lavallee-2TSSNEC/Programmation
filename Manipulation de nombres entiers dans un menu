@@ -1,0 +1,107 @@
+// Alexis LAVALLÉE 2TSSNEC - Exercice 4 Langage C - Manipulations de nombres entiers dans un menu
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    int x1 = 0; //déclaration variable entier
+    int x2 = 0;
+    int reset = 1;
+
+    while(reset == 1) //boucle : tant que reset = , alors :
+    {
+        printf("Veuillez saisir un premier nombre entier : "); //affichage d'un message
+        scanf("%d", &x1); //saisie + scan + stockage dans x1
+        printf("\nVeuillez saisir un deuxieme nombre entier : ");
+        scanf("%d", &x2);
+
+        int choix;
+        printf("\n\n[MENU] Veuillez indiquer le parametre que vous souhaitez afficher"); //menu
+        printf("\n1. Somme des deux nombres");
+        printf("\n2. Produit des deux nombres");
+        printf("\n3. Entiers compris entre ces nombres");
+        printf("\n4. Quitter le programme");
+        printf("\n\n>>> ");
+        while(choix<1 || choix>3)
+        {
+            scanf("%d", &choix);
+            switch(choix) //condition : instruction conditionnelle
+            {
+            case 1: //cas n°1
+                printf("\n\nLa somme des deux nombres est %d", x1 + x2); //Instruction à exécuter dans le cas n°1
+                break; //fin du cas n°1
+            case 2:
+                printf("\n\nLe produit des deux nombres vaut %d", x1*x2);
+                break;
+            case 3:
+                printf("\n\nLes entiers compris entre les 2 nombres sont : ");
+                if(x1>=x2) //condition : si x1 est supérieur ou égal à x2, alors :
+                {
+                    for(int i=x2; i<=x1; i++) //boucle : quand i=x2, on incrémente i jusqu'à la valeur de x1
+                    {
+                        printf("%d ", i);
+                    }
+                }
+                if(x2>=x1)
+                {
+                    for(int i=x1; i<=x2; i++)
+                    {
+                        printf("%d ", i);
+                    }
+                }
+                break;
+            default: //si la valeur de choix n'est pas une valeur attendue
+                printf("\n\nErreur, veuillez saisir un parametre valide"); //instructions à exécuter si choix n'est pas égal à aucune des valeurs des cas
+                break;
+            }
+        }
+        printf("\n\nVoulez-vous recommencer avec un autre nombre entier ? "); //reset
+        printf("\n1. Oui");
+        printf("\n2. Non");
+        printf("\n\n>>> ");
+        scanf("%d", &reset);
+    }
+    return 0; //fin du programme
+}
+
+
+#Alexis LAVALLÉE 2TSSNEC - Exercice 4 Python - Manipulations de nombres entiers dans un menu
+ 
+reset = 1 #déclaration variable
+ 
+while reset == 1: #boucle : tant que reset = 1, alors :
+    x1 = int(input("\nVeuillez saisir un premier nombre entier : ")) #affichage d'un message + saisie + stockage de valeur
+    x2 = int(input("Veuillez saisir un deuxième nombre entier : "))
+ 
+    print("\n[MENU] Veuillez indiquer quel paramètre vous souhaitez afficher") #menu
+    print("1. Somme des deux nombres")
+    print("2. Produit des deux nombres")
+    print("3. Entiers compris entre ces nombres")
+    choix = int(input("\n>>> "))
+ 
+    if choix == 1: #condition : si choix = 1, alors :
+        print("\nLa somme des deux nombres est " + str(x1 + x2))
+ 
+    if choix == 2:
+        print("\nLe produit des deux nombres est " + str(x1 * x2))
+ 
+    if choix == 3:
+        print("\nLes entiers compris entre les 2 nombres sont : ")
+        if x1 >= x2:
+            for i in range(x2, x1+1): #boucle : quand i=x2, on incrémente 1 jusqu'à ce que la valeur soit inférieure ou égal à x1
+                print(str(i) + " ")
+ 
+        if x2 >= x1:
+            for i in range(x1, x2+1):
+                print(str(i) + " ")
+ 
+    if choix < 1 or choix > 3:
+        print("\nErreur, veuillez saisir un paramètre valide.")
+ 
+    print("\nVoulez-vous recommencer avec un autre nombre entier ?")
+    print("1. Oui")
+    print("2. Non")
+    reset = int(input("\n>>> ")) #reset
+ 
+#fin du programme
