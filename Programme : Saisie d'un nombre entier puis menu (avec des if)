@@ -146,3 +146,102 @@ int main()
     }
     return 0; //fin du programme
 }
+
+
+#Alexis LAVALLEE 2TSSNEC - Exercice 1 Python - Menu
+ 
+print("Bienvenue !") #Affichage de texte
+reset = 1 #déclaration variable entier
+i = 0
+j = 0
+ 
+while reset == 1: #boucle : tant que reset = 1, alors :
+    entier=int(input("\n\nVeuillez saisir un nombre : ")) #on saisit un entier dans la variable
+    print("La valeur saisie est : " + str(entier))
+ 
+    if entier <= 0: #condition : si entier est négatif, alors :
+        entier = entier*(-1) #attribution d'une nouvelle valeur
+        print("Cette valeur est négative, son opposé est " + str(entier) + ", qui devient la nouvelle valeur")
+    else: #condition : sinon
+        print("Cette valeur est positive, son double est " + str(entier*2))
+ 
+    if entier<5:
+        print("La valeur est inférieure à 5")
+    elif entier>20: #condition : if (secondaire)
+        print("La valeur est supérieure à 20")
+    else:
+        print("La valeur est comprise entre 5 et 20")
+ 
+    choix = 0
+    multiple = 1
+    somme = 0
+    div = 0
+    moyenne = 0
+    print("\n[MENU] Veuillez choisir quel paramètre vous voulez afficher") #menu
+    print("1. Double du nombre saisi")
+    print("2. Triple du nombre saisi")
+    print("3. Opposé du nombre saisi")
+    print("4. Entiers compris entre 1 et le nombre saisi")
+    print("5. Multiples de 3 entre 1 et le nombre saisi")
+    print("6. Nombre de multiples de 3 entre 1 et le nombre saisi")
+    print("7. Somme des entiers entre 1 et la valeur")
+    print("8. Moyenne de ces valeurs")
+    choix = int(input("\n>>> "))
+ 
+    if choix == 1: #cas n°1
+        print("\nLe double de la valeur est " + str(entier*2))
+ 
+    if choix == 2:
+        print("\nLe triple de la valeur est " + str(entier*3))
+ 
+    if choix == 3:
+        print("\nL'opposé de la valeur est " + str(entier*(-1)))
+ 
+    if choix == 4:
+        print("\nLes entiers compris entre 1 et le nombre saisi sont :\n ")
+        for i in range(2,entier): #boucle : j'incrémente i de 2 à entier
+            print(str(i) + " ")
+ 
+    if choix == 5:
+        if entier >= 3:
+            print("\nLes multiples de 3 se trouvant entre 1 et " + str(entier) + " sont : ")
+            print("3")
+            for j in range(6, entier+1):
+                if j % 3 == 0: #Si il reste 0 quand j est divisé par 3, alors :
+                    print(str(j) + " ")
+        else:
+            print("Il n'y a pas de multiples de 3 entre 1 et le nombre saisi")
+ 
+    if choix == 6:
+        if entier >= 3:
+            for j in range(6, entier+1):
+                if j % 3 == 0:
+                    multiple = multiple + 1
+        print("\nIl y a " + str(multiple)+ " multiples de 3 entre 1 et le nombre saisi")
+ 
+    if choix == 7:
+        for i in range(1, entier+1):
+            somme = somme + i
+        print("\nLa somme des entiers de 1 au nombre saisi est " + str(somme))
+ 
+    if choix == 8:
+        for i in range(1, entier+1):
+            somme = somme + i
+            div = div + 1
+        moyenne = somme/div
+        print("\nLa moyenne des nombres entiers compris entre 1 et le nombre saisi est " + str(moyenne))
+ 
+    print("\nVoulez-vous resaisir un nombre ?")
+    print("1. Oui")
+    print("2. Non")
+    rejouer = int(input("\n>>> "))
+ 
+    if rejouer == 2: #reset
+        reset = 0
+    elif rejouer == 1:
+        reset = 1
+    else:
+        print("\nErreur")
+        reset = 1
+ 
+#fin du programme
