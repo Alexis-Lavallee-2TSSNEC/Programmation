@@ -27,3 +27,26 @@ int main()
     }
     return 0; //fin du programme
 }
+
+#Alexis LAVALLEE 2TSSNEC - Exercice 2 Python - Table de multiplication et factorielle
+ 
+entier = int(input("Veuillez saisir un entier positif : ")) #déclaration variable + saisie et stockage de valeur
+ 
+if entier > 0: #condition : si entier est positif, alors :
+    print("Le nombre saisi est : " + str(entier)) #affichage d'un message
+ 
+    print("\n----- Table de multiplication de " + str(entier) + " -----")
+ 
+    for i in range(1, 12): #boucle : depuis i=1, on incrémente i juqu'à 12
+        print("\n" + str(entier) + " x " + str(i) + " = " + str(entier*i))
+ 
+    print("\n----- Factorielle de " + str(entier) + " -----")
+    factorielle = 1 
+ 
+    for i in range(1, entier+1):
+        factorielle = factorielle*i #attribution d'une nouvelle valeur à la variable
+ 
+    print("La factorielle de " + str(entier) + " est : " + str(factorielle))
+ 
+#fin du programme
+ 
