@@ -1,0 +1,703 @@
+//ALEXIS LAVALLÉE - PIERRE PASCAL - 2TSSNEC
+//PUISSANCE 4 EN LANGAGE C
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <windows.h>
+#define lignes 6
+#define colonnes 7
+
+void Color(int couleurDuTexte,int couleurDeFond) //Fonction pour afficher des couleurs
+{
+    HANDLE H=GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(H,couleurDeFond*16+couleurDuTexte);
+}
+
+int main()
+{
+    int reset = 1;
+
+
+    while(reset == 1)
+    {
+        //Declaration des variables et tableaux
+        int i = 5;
+        int j = 0;
+        int indiceligne = 5;
+        char joueur1[50], joueur2[50] ;
+        char AffPlateau[lignes][colonnes];
+        int ContenuPlateau[lignes][colonnes]= {{0}};
+        int l, Combo, Colonne, c;
+        int Winner = 0;
+        int tour = 1;
+
+
+        //On insère des espaces dans les cases du tableau
+        for (l = 0 ; l < 6 ; l++)
+        {
+            for (c = 0 ; c < 7 ; c++)
+            {
+                AffPlateau[l][c] = ' ';
+            }
+        }
+
+
+        //Affichage du message de bienvenue
+        printf("Bonjour %c tous et bienvenue sur le Puissance 4 !\n\n", 133);
+
+
+        //Affichage des règles
+        printf("----- R%cgles du jeu -----\n\n", 138);
+        printf("Pour jouer au puissance 4, il faut :\n");
+        printf("- Le plateau du jeu et ses 42 emplacements pour jetons r%cpartis en 6 lignes et 7 colonnes\n", 130);
+        printf("- 42 jetons de 2 couleurs diff%crentes\n", 130);
+        printf("- 2 joueurs\n\n");
+        printf("Commencer une partie de puissance 4 :\n");
+        printf("- Pour commencer une partie de puissance 4, on d%csigne le premier joueur. Celui-ci met un de ses jetons de couleur\n dans l'une des colonnes de son choix. Le jeton tombe alors en bas de la colonne.\n", 130);
+        printf("- Le deuxi%cme joueur ins%cre %c son tour son jeton, de l'autre couleur dans la colonne de son choix. Et ainsi de suite\n jusqu'%c obtenir une rang%ce de 4 jetons de m%cme couleur.\n\n", 138, 138, 133, 133, 130, 136);
+        printf("Comment gagner une partie de puissance 4 :\n");
+        printf("- Pour gagner une partie de puissance 4, il suffit d'%ctre le premier %c aligner 4 jetons de sa couleur horizontalement,\n verticalement et diagonalement.\n", 136, 133);
+        printf("- Si lors d'une partie, tous les jetons sont jou%cs sans qu'il y est d'alignement de jetons, la partie est donc nulle.\n\n", 130);
+
+
+        //Saisie du nom des joueurs
+        printf("--> Veuillez saisir vos noms :\n");
+        printf("\nQui est le joueur 1 (Rouge) ? ");
+        Color(12,0);
+        scanf("%s", &joueur1);
+        Color(15,0);
+        printf("\nQui est le joueur 2 (Jaune) ? ");
+        Color(14,0);
+        scanf("%s", &joueur2);
+        Color(15,0);
+        printf("\n");
+
+
+        //Codes des joueurs
+        do
+        {
+            //Affichage du tableau
+            printf("|   0   |   1   |   2   |   3   |   4   |   5   |   6   |\n");
+            printf("|-------|-------|-------|-------|-------|-------|-------|\n");
+            for (i = 5; i >= 0; i--)
+            {
+                printf("|       |       |       |       |       |       |       |\n");
+                for (j = 0; j<=6; j++)
+                {
+
+                    if ( ContenuPlateau[i][j] == 1)
+                    {
+                        Color(15,0);
+                        printf("|");
+                        Color(12,0);
+                        printf("   %c   ", AffPlateau[i][j]);
+
+                    }
+                    if (ContenuPlateau[i][j] == 2)
+                    {
+                        Color(15,0);
+                        printf("|");
+                        Color(14,0);
+                        printf("   %c   ", AffPlateau[i][j]);
+
+                    }
+                    if (ContenuPlateau[i][j] == 0)
+                    {
+                        Color(15,0);
+                        printf("|");
+                        printf("   %c   ", AffPlateau[i][j]);
+                    }
+
+                }
+                Color(15,0);
+                printf("|  %d\n", indiceligne--);
+                printf("|       |       |       |       |       |       |       |\n");
+                printf("+-------+-------+-------+-------+-------+-------+-------+\n");
+            }
+            indiceligne = 5;
+
+
+            //Joueur 1
+            if (tour == 1)
+            {
+                //Demande de saisie de coordonnées aux joueurs
+                printf("\n%s : Saisissez la colonne de la case : ", joueur1);
+                Color(12,0);
+                scanf("%d", &Colonne);
+                Color(15,0);
+                printf("\n");
+
+
+                //Tests (on teste si la colonne saisie est valide et si la colonne possède des cases disponibles)
+                while(Colonne < 0 || Colonne > 6)
+                {
+                    printf("\nVous avez saisi un indice qui n'existe pas, veuillez faire un autre choix : ");
+                    printf("\nSaisissez la colonne de la case : ");
+                    Color(12,0);
+                    scanf("%d", &Colonne);
+                    Color(15,0);
+                    printf("\n");
+                }
+
+                while(AffPlateau[0][Colonne] == 'O' && AffPlateau[1][Colonne] == 'O' && AffPlateau[2][Colonne] == 'O' && AffPlateau[3][Colonne] == 'O' && AffPlateau[4][Colonne] == 'O' && AffPlateau[5][Colonne] == 'O')
+                {
+                    printf("\nLa colonne est d%cj%c pleine, veuillez faire un autre choix : ", 130, 133);
+                    printf("\nSaisissez la colonne de la case : ");
+                    Color(12,0);
+                    scanf("%d", &Colonne);
+                    Color(15,0);
+                    printf("\n");
+
+                    while(Colonne < 0 || Colonne > 6)
+                    {
+                        printf("\nVous avez saisi un indice qui n'existe pas, veuillez faire un autre choix : ");
+                        printf("\nSaisissez la colonne de la case : ");
+                        Color(12,0);
+                        scanf("%d", &Colonne);
+                        Color(15,0);
+                        printf("\n");
+                    }
+                }
+
+
+                /*Remplissage du tableau en faisant comme si le jeton tombait*/
+                for (l = 0 ; l < 6 ; l++)
+                {
+                    if (ContenuPlateau[l][Colonne] == 0 )
+                    {
+                        ContenuPlateau[l][Colonne] = 1;
+                        AffPlateau[l][Colonne]= 'O';
+                        Combo = l ;
+                        l = 6 ;
+                    }
+                }
+
+
+                //On teste les combos de pions
+                //Combo de pions en vertical
+                if (Combo >= 3)
+                {
+                    if (ContenuPlateau[Combo-1][Colonne]== 1 )
+                    {
+                        if (ContenuPlateau[Combo-2][Colonne]==1)
+                        {
+                            if (ContenuPlateau[Combo-3][Colonne]==1)
+                            {
+                                Winner = 1 ;
+                            }
+                        }
+                    }
+                }
+
+
+                //Combo de pions en horizontal
+                //Si 3 pions de la même couleur se trouvent à droite de la case :
+                if (Colonne <= 3 && Colonne >= 0)
+                {
+                    if (ContenuPlateau[Combo][Colonne+1]== 1)
+                    {
+                        if (ContenuPlateau[Combo][Colonne+2]==1)
+                        {
+                            if (ContenuPlateau[Combo][Colonne+3]==1)
+                            {
+                                Winner = 1 ;
+                            }
+                        }
+                    }
+                }
+
+                //Si 1 pion de la même couleur se trouve à gauche de la case et 2 pions à droite (surtout pour la case 1 et 4) :
+                if (Colonne <= 4 && Colonne >= 1)
+                {
+                    if (ContenuPlateau[Combo][Colonne-1]== 1 )
+                    {
+                        if (ContenuPlateau[Combo][Colonne+1]==1)
+                        {
+                            if (ContenuPlateau[Combo][Colonne+2]==1)
+                            {
+                                Winner = 1 ;
+                            }
+                        }
+                    }
+                }
+
+                //Si 2 pions de la même couleur se trouvent à gauche de la case et 1 pion à droite (surtout pour la case 2 et 5) :
+                if (Colonne <= 5 && Colonne >= 2)
+                {
+                    if (ContenuPlateau[Combo][Colonne-2]== 1 )
+                    {
+                        if (ContenuPlateau[Combo][Colonne-1]==1)
+                        {
+                            if (ContenuPlateau[Combo][Colonne+1]==1)
+                            {
+                                Winner = 1 ;
+                            }
+                        }
+                    }
+                }
+
+                //Si 3 pions de la même couleur se trouvent à gauche de la case :
+                if (Colonne >= 3)
+                {
+                    if (ContenuPlateau[Combo][Colonne-3]== 1 )
+                    {
+                        if (ContenuPlateau[Combo][Colonne-2]==1)
+                        {
+                            if (ContenuPlateau[Combo][Colonne-1]==1)
+                            {
+                                Winner = 1 ;
+                            }
+                        }
+                    }
+                }
+
+                //Combo de pions en diagonal
+                //Diagonale qui monte :
+                if (Combo <= 2 && Colonne <= 3)
+                {
+                    if (ContenuPlateau[Combo+1][Colonne+1]== 1 )
+                    {
+                        if (ContenuPlateau[Combo+2][Colonne+2]==1)
+                        {
+                            if (ContenuPlateau[Combo+3][Colonne+3]==1)
+                            {
+                                Winner = 1 ;
+                            }
+                        }
+                    }
+                }
+
+                if (Combo >= 1 && Combo <= 3 && Colonne <= 4 && Colonne >= 1)
+                {
+                    if (ContenuPlateau[Combo-1][Colonne-1]== 1 )
+                    {
+                        if (ContenuPlateau[Combo+1][Colonne+1]==1)
+                        {
+                            if (ContenuPlateau[Combo+2][Colonne+2]==1)
+                            {
+                                Winner = 1 ;
+                            }
+                        }
+                    }
+                }
+
+                if (Combo >= 2 && Combo <= 4 && Colonne >= 2 && Colonne <= 5)
+                {
+                    if (ContenuPlateau[Combo-2][Colonne-2]== 1 )
+                    {
+                        if (ContenuPlateau[Combo-1][Colonne-1]==1)
+                        {
+                            if (ContenuPlateau[Combo+1][Colonne+1]==1)
+                            {
+                                Winner = 1 ;
+                            }
+                        }
+                    }
+                }
+
+                if (Combo >= 3 && Colonne >= 3)
+                {
+                    if (ContenuPlateau[Combo-3][Colonne-3]== 1 )
+                    {
+                        if (ContenuPlateau[Combo-2][Colonne-2]==1)
+                        {
+                            if (ContenuPlateau[Combo-1][Colonne-1]==1)
+                            {
+                                Winner = 1 ;
+                            }
+                        }
+                    }
+                }
+
+
+                //Diagonale qui descend :
+                if (Combo >= 3 && Colonne <= 3 )
+                {
+                    if (ContenuPlateau[Combo-1][Colonne+1]== 1 )
+                    {
+                        if (ContenuPlateau[Combo-2][Colonne+2]==1)
+                        {
+                            if (ContenuPlateau[Combo-3][Colonne+3]==1)
+                            {
+                                Winner = 1 ;
+                            }
+                        }
+                    }
+                }
+                if (Combo >= 2 && Combo <= 4 && Colonne <= 4 && Colonne >= 1)
+                {
+                    if (ContenuPlateau[Combo-2][Colonne+2]== 1 )
+                    {
+                        if (ContenuPlateau[Combo+1][Colonne-1]==1)
+                        {
+                            if (ContenuPlateau[Combo-1][Colonne+1]==1)
+                            {
+                                Winner = 1 ;
+                            }
+                        }
+                    }
+                }
+                if (Combo >= 1 && Combo <= 3 && Colonne <= 5 && Colonne >= 2)
+                {
+                    if (ContenuPlateau[Combo+1][Colonne-1]== 1 )
+                    {
+                        if (ContenuPlateau[Combo-1][Colonne+1]==1)
+                        {
+                            if (ContenuPlateau[Combo+2][Colonne-2]==1)
+                            {
+                                Winner = 1 ;
+                            }
+                        }
+                    }
+                }
+                if ( Combo <= 2 && Colonne >= 3)
+                {
+                    if (ContenuPlateau[Combo+2][Colonne-2]== 1 )
+                    {
+                        if (ContenuPlateau[Combo+1][Colonne-1]==1)
+                        {
+                            if (ContenuPlateau[Combo+3][Colonne-3]==1)
+                            {
+                                Winner = 1 ;
+                            }
+                        }
+                    }
+                }
+
+                //On passe au joueur 2
+                tour = 2 ;
+
+                //Si chaque indice de colonne pour chaque indice de ligne n'est pas rempli par un 0, alors on passe Winner à 3
+                if (ContenuPlateau [5][0] != 0 && ContenuPlateau [5][1] != 0 && ContenuPlateau [5][2] != 0 && ContenuPlateau [5][3] != 0 && ContenuPlateau [5][4] != 0 && ContenuPlateau [5][5] != 0 && ContenuPlateau [5][6] != 0 )
+                {
+                    Winner = 3 ;
+                }
+            }
+            else //Joueur 2
+            {
+                //Demande de saisie de coordonnées aux joueurs
+                printf("\n%s : Saisissez la colonne de la case : ", joueur2);
+                Color(14,0);
+                scanf("%d", &Colonne);
+                Color(15,0);
+                printf("\n");
+
+
+                //Tests (on teste si la colonne saisie est valide et si la colonne possède des cases disponibles)
+                while(Colonne < 0 || Colonne > 6)
+                {
+                    printf("\nVous avez saisi un indice qui n'existe pas, veuillez faire un autre choix : ");
+                    printf("\nSaisissez la colonne de la case : ");
+                    Color(14,0);
+                    scanf("%d", &Colonne);
+                    Color(15,0);
+                    printf("\n");
+                }
+
+                while(AffPlateau[0][Colonne] == 'O' && AffPlateau[1][Colonne] == 'O' && AffPlateau[2][Colonne] == 'O' && AffPlateau[3][Colonne] == 'O' && AffPlateau[4][Colonne] == 'O' && AffPlateau[5][Colonne] == 'O')
+                {
+                    printf("\nLa colonne est d%cj%c pleine, veuillez faire un autre choix : ", 130, 133);
+                    printf("\nSaisissez la colonne de la case : ");
+                    Color(14,0);
+                    scanf("%d", &Colonne);
+                    Color(15,0);
+                    printf("\n");
+
+                    while(Colonne < 0 || Colonne > 6)
+                    {
+                        printf("\nVous avez saisi un indice qui n'existe pas, veuillez faire un autre choix : ");
+                        printf("\nSaisissez la colonne de la case : ");
+                        Color(14,0);
+                        scanf("%d", &Colonne);
+                        Color(15,0);
+                        printf("\n");
+                    }
+                }
+
+
+                /*Remplissage du tableau en faisant comme si le jeton tombait*/
+                for (l = 0 ; l < 6 ; l++)
+                {
+                    if (ContenuPlateau[l][Colonne] == 0 )
+                    {
+                        ContenuPlateau[l][Colonne] = 2 ;
+                        AffPlateau[l][Colonne] = 'O' ;
+                        Combo = l ;
+                        l = 6 ;
+                    }
+                }
+
+
+                //On teste les combos de pions
+                //Combo de pions en vertical
+                if (Combo >= 3)
+                {
+                    if (ContenuPlateau[Combo-1][Colonne]==2)
+                    {
+                        if (ContenuPlateau[Combo-2][Colonne]==2)
+                        {
+                            if (ContenuPlateau[Combo-3][Colonne]==2)
+                            {
+                                Winner = 2 ;
+                            }
+                        }
+                    }
+                }
+
+
+                //Combo de pions en horizontal
+                //Si 3 pions de la même couleur se trouvent à droite de la case :
+                if (Colonne <= 3 && Colonne >= 0)
+                {
+                    if (ContenuPlateau[Combo][Colonne+1]==2)
+                    {
+                        if (ContenuPlateau[Combo][Colonne+2]==2)
+                        {
+                            if (ContenuPlateau[Combo][Colonne+3]==2)
+                            {
+                                Winner = 2 ;
+                            }
+                        }
+                    }
+                }
+
+                //Si 1 pion de la même couleur se trouve à gauche de la case et 2 pions à droite (surtout pour la case 1 et 4) :
+                if (Colonne <= 4 && Colonne >= 1)
+                {
+                    if (ContenuPlateau[Combo][Colonne-1]==2)
+                    {
+                        if (ContenuPlateau[Combo][Colonne+1]==2)
+                        {
+                            if (ContenuPlateau[Combo][Colonne+2]==2)
+                            {
+                                Winner = 2 ;
+                            }
+                        }
+                    }
+                }
+
+                //Si 2 pions de la même couleur se trouvent à gauche de la case et 1 pion à droite (surtout pour la case 2 et 5) :
+                if (Colonne <= 5 && Colonne >= 2)
+                {
+                    if (ContenuPlateau[Combo][Colonne-2]==2)
+                    {
+                        if (ContenuPlateau[Combo][Colonne-1]==2)
+                        {
+                            if (ContenuPlateau[Combo][Colonne+1]==2)
+                            {
+                                Winner = 2 ;
+                            }
+                        }
+                    }
+                }
+
+                //Si 3 pions de la même couleur se trouvent à gauche de la case :
+                if (Colonne >= 3)
+                {
+                    if (ContenuPlateau[Combo][Colonne-3]==2)
+                    {
+                        if (ContenuPlateau[Combo][Colonne-2]==2)
+                        {
+                            if (ContenuPlateau[Combo][Colonne-1]==2)
+                            {
+                                Winner = 2 ;
+                            }
+                        }
+                    }
+                }
+
+                //Combo de pions en diagonal
+                //Diagonale qui monte :
+                if (Combo <= 2 && Colonne <= 3)
+                {
+                    if (ContenuPlateau[Combo+1][Colonne+1]==2)
+                    {
+                        if (ContenuPlateau[Combo+2][Colonne+2]==2)
+                        {
+                            if (ContenuPlateau[Combo+3][Colonne+3]==2)
+                            {
+                                Winner = 2 ;
+                            }
+                        }
+                    }
+                }
+
+                if (Combo >= 1 && Combo <= 3 && Colonne <= 4 && Colonne >= 1)
+                {
+                    if (ContenuPlateau[Combo-1][Colonne-1]==2)
+                    {
+                        if (ContenuPlateau[Combo+1][Colonne+1]==2)
+                        {
+                            if (ContenuPlateau[Combo+2][Colonne+2]==2)
+                            {
+                                Winner = 2 ;
+                            }
+                        }
+                    }
+                }
+
+                if (Combo >= 2 && Combo <= 4 && Colonne >= 2 && Colonne <= 5)
+                {
+                    if (ContenuPlateau[Combo-2][Colonne-2]==2)
+                    {
+                        if (ContenuPlateau[Combo-1][Colonne-1]==2)
+                        {
+                            if (ContenuPlateau[Combo+1][Colonne+1]==2)
+                            {
+                                Winner = 2 ;
+                            }
+                        }
+                    }
+                }
+
+                if (Combo >= 3 && Colonne >= 3)
+                {
+                    if (ContenuPlateau[Combo-3][Colonne-3]==2)
+                    {
+                        if (ContenuPlateau[Combo-2][Colonne-2]==2)
+                        {
+                            if (ContenuPlateau[Combo-1][Colonne-1]==2)
+                            {
+                                Winner = 2 ;
+                            }
+                        }
+                    }
+                }
+
+
+                //Diagonale qui descend :
+                if (Combo >= 3 && Colonne <= 3 )
+                {
+                    if (ContenuPlateau[Combo-1][Colonne+1]==2)
+                    {
+                        if (ContenuPlateau[Combo-2][Colonne+2]==2)
+                        {
+                            if (ContenuPlateau[Combo-3][Colonne+3]==2)
+                            {
+                                Winner = 2 ;
+                            }
+                        }
+                    }
+                }
+
+                if (Combo >= 2 && Combo <= 4 && Colonne <= 4 && Colonne >= 1)
+                {
+                    if (ContenuPlateau[Combo-2][Colonne+2]==2)
+                    {
+                        if (ContenuPlateau[Combo+1][Colonne-1]==2)
+                        {
+                            if (ContenuPlateau[Combo-1][Colonne+1]==2)
+                            {
+                                Winner = 2 ;
+                            }
+                        }
+                    }
+                }
+
+                if (Combo >= 1 && Combo <= 3 && Colonne <= 5 && Colonne >= 2)
+                {
+                    if (ContenuPlateau[Combo+1][Colonne-1]==2)
+                    {
+                        if (ContenuPlateau[Combo-1][Colonne+1]==2)
+                        {
+                            if (ContenuPlateau[Combo+2][Colonne-2]==2)
+                            {
+                                Winner = 2 ;
+                            }
+                        }
+                    }
+                }
+
+                if (Combo <= 2 && Colonne >= 3)
+                {
+                    if(ContenuPlateau[Combo+2][Colonne-2]== 2)
+                    {
+                        if(ContenuPlateau[Combo+1][Colonne-1]==2)
+                        {
+                            if(ContenuPlateau[Combo+3][Colonne-3]==2)
+                            {
+                                Winner = 2 ;
+                            }
+                        }
+                    }
+                }
+
+
+                //On passe au joueur 1
+                tour = 1 ;
+
+                //Si chaque indice de colonne pour chaque indice de ligne n'est pas rempli par un 0, alors on passe Winner à 3
+                if(ContenuPlateau [5][0] != 0 && ContenuPlateau [5][1] != 0 && ContenuPlateau [5][2] != 0 && ContenuPlateau [5][3] != 0 && ContenuPlateau [5][4] != 0 && ContenuPlateau [5][5] != 0 && ContenuPlateau [5][6] != 0 )
+                {
+                    Winner = 3 ;
+                }
+            }
+            //Sortie de la boucle car soit l'un des 2 joueurs a gagné soit le tableau est complet
+        }
+        while(Winner !=1 && Winner != 2 && Winner != 3);
+
+
+        //Affichage du tableau une fois la partie finie
+        printf("|   0   |   1   |   2   |   3   |   4   |   5   |   6   |\n");
+        printf("|-------|-------|-------|-------|-------|-------|-------|\n");
+        for(i = 5; i >= 0; i--)
+        {
+            printf("|       |       |       |       |       |       |       |\n");
+            for(j = 0; j<=6; j++)
+            {
+                if(ContenuPlateau[i][j] == 1)
+                {
+                    Color(15,0);
+                    printf("|");
+                    Color(12,0);
+                    printf("   %c   ", AffPlateau[i][j]);
+                }
+                if (ContenuPlateau[i][j] == 2)
+                {
+                    Color(15,0);
+                    printf("|");
+                    Color(14,0);
+                    printf("   %c   ", AffPlateau[i][j]);
+                }
+                if (ContenuPlateau[i][j] == 0)
+                {
+                    Color(15,0);
+                    printf("|");
+                    printf("   %c   ", AffPlateau[i][j]);
+                }
+            }
+            Color(15,0);
+            printf("|  %d\n", indiceligne--);
+            printf("|       |       |       |       |       |       |       |\n");
+            printf("+-------+-------+-------+-------+-------+-------+-------+\n");
+        }
+
+
+        indiceligne = 5;
+
+
+        //Résultats
+        switch (Winner)
+        {
+        case 1:
+            printf("\n%s remporte la partie ! Bien jou%c !\n\n", joueur1, 130);
+            break ;
+        case 2:
+            printf("\n%s remporte la partie ! Bien jou%c !\n\n", joueur2, 130);
+            break;
+        case 3:
+            printf ("\nMatch nul !\n\n");
+            break;
+        }
+
+
+        //Reset au début du jeu
+        printf("--> Voulez vous rejouer ?\n");
+        printf("1. Oui\n");
+        printf("2. Non\n\n");
+        printf(">>> ");
+        scanf("%d", &reset);
+        printf("\n");
+    }
+    return 0;
+}
